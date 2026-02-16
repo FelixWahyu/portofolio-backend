@@ -1,0 +1,23 @@
+{
+  "name": "backend-portofolio",
+  "version": "1.0.0",
+  "description": "My portfolio backend server",
+  "license": "ISC",
+  "author": "Felix Wahyu Sejati",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/server.js",
+    "start": "node ./src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
