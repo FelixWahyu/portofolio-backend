@@ -2,6 +2,8 @@ import fetch from "node-fetch";
 import { env } from "../config/env.js";
 
 export const fetchWakaTimeStats = async () => {
+  console.log("API KEY:", env.WAKATIME_API_KEY ? "exists" : "MISSING");
+  console.log("Fetching wakatime...");
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000);
 
@@ -12,6 +14,7 @@ export const fetchWakaTimeStats = async () => {
       },
       signal: controller.signal,
     });
+    console.log("Response status:", response.status);
 
     const result = await response.json();
 
@@ -20,6 +23,8 @@ export const fetchWakaTimeStats = async () => {
     }
 
     return result.data;
+  } catch (err) {
+    console.log("Error:", err.message);
   } finally {
     clearTimeout(timeout);
   }
