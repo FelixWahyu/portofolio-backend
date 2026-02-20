@@ -1,11 +1,11 @@
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
 import { env } from "../config/env.js";
 
 export const fetchWakaTimeStats = async () => {
   console.log("API KEY:", env.WAKATIME_API_KEY ? "exists" : "MISSING");
   console.log("Fetching wakatime...");
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
+  const timeout = setTimeout(() => controller.abort(), 8000);
 
   try {
     const response = await fetch("https://wakatime.com/api/v1/users/current/stats/last_7_days", {
