@@ -1,15 +1,27 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes/index.js";
+import { env } from "./config/env.js";
 import { errorResponse } from "./utils/responseHelper.js";
 
 const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:8080", "http://localhost:5173", "https://www.felixws.my.id"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      const allowedOrigins = env.ALLOWED_ORIGINS;
+      if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes("*")) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
+    optionsSuccessStatus: 200,
   }),
 );
 app.use(express.json());
