@@ -17,3 +17,35 @@ model User {
 
   @@map("users")
 }
+
+model Project {
+  id            String   @id @default(cuid())
+
+  // === Bilingual Fields (ID & EN) ===
+  titleId       String   @map("title_id")
+  titleEn       String   @map("title_en")
+  descriptionId String   @map("description_id") @db.Text
+  descriptionEn String   @map("description_en") @db.Text
+  roleId        String   @map("role_id") @db.Text
+  roleEn        String   @map("role_en") @db.Text
+  problemId     String   @map("problem_id") @db.Text
+  problemEn     String   @map("problem_en") @db.Text
+  impactId      String   @map("impact_id") @db.Text
+  impactEn      String   @map("impact_en") @db.Text
+  featuresId    String[] @map("features_id")
+  featuresEn    String[] @map("features_en")
+
+  // === Non-translatable Fields ===
+  image         String                        // URL gambar (Cloudinary)
+  category      String   @default("Web")      // "Web" | "Mobile"
+  tech          String[]                       // Array tech stack
+  demolink      String?  @map("demo_link")
+  sourcelink    String?  @map("source_link")
+  sortOrder     Int      @default(0) @map("sort_order")
+  isPublished   Boolean  @default(true) @map("is_published")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
