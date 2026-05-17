@@ -8,5 +8,18 @@ export const env = {
   DATABASE_URL: process.env.DATABASE_URL,
   JWT_SECRET: process.env.JWT_SECRET || "supersecretkey",
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "7d",
-  ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : ["http://localhost:5173", "http://localhost:8080"],
+  ALLOWED_ORIGINS: (() => {
+    const raw = process.env.ALLOWED_ORIGINS;
+    if (!raw) return ["http://localhost:5173", "http://localhost:8080"];
+    try {
+      const trimmed = raw.trim();
+      if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+        return JSON.parse(trimmed);
+      }
+    } catch (e) {
+      // Fallback if parsing fails
+    }
+    return raw.split(",").map(origin => origin.trim().replace(/^["']|["']$/g, ""));
+  })(),
 };
+
