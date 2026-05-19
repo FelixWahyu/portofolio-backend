@@ -49,3 +49,31 @@ model Project {
   @@map("projects")
 }
 
+model Achievement {
+  id              String   @id @default(cuid())
+
+  // === Bilingual Fields (ID & EN) ===
+  titleId         String   @map("title_id")
+  titleEn         String   @map("title_en")
+  issuerTextId    String   @map("issuer_text_id")    // Penerbit (ID)
+  issuerTextEn    String   @map("issuer_text_en")    // Penerbit (EN)
+  descriptionId   String?  @map("description_id") @db.Text
+  descriptionEn   String?  @map("description_en") @db.Text
+  tagsId          String[] @map("tags_id")           // Kategori tag (ID)
+  tagsEn          String[] @map("tags_en")           // Kategori tag (EN)
+  dateId          String   @map("date_id")           // "DESEMBER 2023"
+  dateEn          String   @map("date_en")           // "DECEMBER 2023"
+
+  // === Non-translatable Fields ===
+  image           String                              // URL gambar (Cloudinary)
+  type            String   @default("Profesional")    // Free-text
+  credentialCode  String?  @map("credential_code")    // ID Kredensial
+  sortOrder       Int      @default(0) @map("sort_order")
+  isPublished     Boolean  @default(true) @map("is_published")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("achievements")
+}
+
+

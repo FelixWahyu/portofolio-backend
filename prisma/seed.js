@@ -290,6 +290,94 @@ const projectsData = [
   }
 ];
 
+const achievementsData = [
+  {
+    titleId: "Data Analyst & Software Engineering",
+    titleEn: "Data Analyst & Software Engineering",
+    issuerTextId: "PT. Revolusi Citra Edukasi",
+    issuerTextEn: "PT. Revolusi Citra Edukasi",
+    tagsId: ["MSIB", "Frontend", "Backend"],
+    tagsEn: ["MSIB", "Frontend", "Backend"],
+    dateId: "DESEMBER 2023",
+    dateEn: "DECEMBER 2023",
+    credentialCode: "CMP/12-23/HCLGA/6256556",
+    image: "/img/award/revou-sib.webp",
+    type: "Profesional",
+    descriptionId: "Mengolah dan menganalisis data untuk pengambilan keputusan dan Membangun aplikasi website frontend dan backend.",
+    descriptionEn: "Processing and analyzing data for decision making and building frontend and backend website applications.",
+    sortOrder: 1,
+    isPublished: true,
+  },
+  {
+    titleId: "Microsoft Web and Mobile Developer",
+    titleEn: "Microsoft Web and Mobile Developer",
+    issuerTextId: "PT. Maribelajar Indonesia Cerdas",
+    issuerTextEn: "PT. Maribelajar Indonesia Cerdas",
+    tagsId: ["MSIB", "Microsoft Power App", ".Net Web Application"],
+    tagsEn: ["MSIB", "Microsoft Power App", ".Net Web Application"],
+    dateId: "JUNI 2024",
+    dateEn: "JUNE 2024",
+    credentialCode: "AY24/MSIB/Q2/01204",
+    image: "/img/award/maribelajar-sib.webp",
+    type: "Profesional",
+    descriptionId: "Mengembangkan aplikasi website dan mobile dengan microsoft power app.",
+    descriptionEn: "Develop website and mobile applications with Microsoft Power Apps.",
+    sortOrder: 2,
+    isPublished: true,
+  },
+  {
+    titleId: "Kepesertaan Program MSIB Batch 6",
+    titleEn: "MSIB Batch 6 Program Participation",
+    issuerTextId: "Kampus Merdeka Belajar",
+    issuerTextEn: "Kampus Merdeka Belajar",
+    tagsId: ["MSIB", "Kampus Merdeka", "Course"],
+    tagsEn: ["MSIB", "Kampus Merdeka", "Course"],
+    dateId: "JULI 2024",
+    dateEn: "JULY 2024",
+    credentialCode: "9286539",
+    image: "/img/award/msib-bersertifikat.webp",
+    type: "Profesional",
+    descriptionId: "Program yang dilaksanakan pemerintah Merdeka Belajar Kampus Merdeka angkatan 6 berkesempatan belajar diluar kampus.",
+    descriptionEn: "The program implemented by the government, Merdeka Belajar Kampus Merdeka, batch 6 had the opportunity to study outside the campus.",
+    sortOrder: 3,
+    isPublished: true,
+  },
+  {
+    titleId: "Laravel: Pemula Sampai Mahir",
+    titleEn: "Laravel: Beginner to Advanced",
+    issuerTextId: "Udemy",
+    issuerTextEn: "Udemy",
+    tagsId: ["Udemy", "Web Development", "Course"],
+    tagsEn: ["Udemy", "Web Development", "Course"],
+    dateId: "APRIL 2026",
+    dateEn: "APRIL 2026",
+    credentialCode: "0004/UC-ae51816b-68d9-4a09-b6b6-331b1a62cab1",
+    image: "/img/award/sertifikat-course-laravel.webp",
+    type: "Course",
+    descriptionId: "Sertifikat penghargaan menyelesaikan course keahlian Laravel pemula sampai mahir di Udemy yang dengan instructor yang sudah expert dibidangnya yaitu Programmer Zaman Now.",
+    descriptionEn: "Certificate of appreciation for completing the Laravel skills course from beginner to advanced on Udemy with instructors who are experts in their field, namely Programmer Zaman Now.",
+    sortOrder: 4,
+    isPublished: true,
+  },
+  {
+    titleId: "Sertifikat Apresiasi Sebagai Panitia PKKMB",
+    titleEn: "Certificate of Appreciation as PKKMB Committee",
+    issuerTextId: "STIKOM Yos Sudarso Purwokerto",
+    issuerTextEn: "STIKOM Yos Sudarso Purwokerto",
+    tagsId: ["Pencapaian", "Panitia"],
+    tagsEn: ["Achievement", "Committee"],
+    dateId: "JANUARI 2025",
+    dateEn: "JANUARY 2025",
+    credentialCode: "05-039/PKKMB-SYS/IX/24",
+    image: "/img/award/panitia-pkkmb.webp",
+    type: "Organisasi",
+    descriptionId: "Berkontribusi dalam kegiatan kampus sebagai panitia PKKMB belajar koordinasi dan kerja sama tim.",
+    descriptionEn: "Contribute to campus activities as a PKKMB committee member to learn coordination and teamwork.",
+    sortOrder: 5,
+    isPublished: true,
+  }
+];
+
 async function main() {
   const adminEmail = "admin@felixws.my.id";
   const placeholderPassword = "adminpassword123";
@@ -323,6 +411,18 @@ async function main() {
     console.log(`Created project: ${createdProject.titleId}`);
   }
 
+  console.log("Seeding achievements...");
+  
+  // Clear existing achievements to avoid duplicate entries
+  await prisma.achievement.deleteMany({});
+  
+  for (const achievement of achievementsData) {
+    const createdAchievement = await prisma.achievement.create({
+      data: achievement
+    });
+    console.log(`Created achievement: ${createdAchievement.titleId}`);
+  }
+
   console.log("Seed finished successfully.");
 }
 
@@ -334,3 +434,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
