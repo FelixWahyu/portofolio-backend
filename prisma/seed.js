@@ -3,6 +3,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import { experiencesData } from "./experience.seed.js";
 
 dotenv.config();
 
@@ -22,30 +23,16 @@ const projectsData = [
     image: "/img/project-image/web-sales.webp",
     category: "Web",
     tech: ["Laravel 12", "Tailwind CSS", "WhatsApp API", "Alpine.js"],
-    problemId: "Bisnis masih mengandalkan promosi melalui media sosial tanpa website resmi. Selain itu, pencatatan penjualan dan pesanan masih dilakukan secara manual sehingga berisiko menyebabkan data tercecer dan kehilangan informasi transaksi.",
+    problemId:
+      "Bisnis masih mengandalkan promosi melalui media sosial tanpa website resmi. Selain itu, pencatatan penjualan dan pesanan masih dilakukan secara manual sehingga berisiko menyebabkan data tercecer dan kehilangan informasi transaksi.",
     problemEn: "Businesses still rely on social media promotions without an official website. Furthermore, recording sales and orders is still done manually, which risks data loss and loss of transaction information.",
-    roleId: "Fullstack Developer — melakukan observasi langsung terhadap kebutuhan bisnis, merancang company profile dan sistem penjualan berbasis website, mendesain struktur database, prototype sistem, hingga pengembangan aplikasi secara end-to-end.",
+    roleId:
+      "Fullstack Developer — melakukan observasi langsung terhadap kebutuhan bisnis, merancang company profile dan sistem penjualan berbasis website, mendesain struktur database, prototype sistem, hingga pengembangan aplikasi secara end-to-end.",
     roleEn: "Fullstack Developer — conducts direct observation of business needs, designs company profiles and website-based sales systems, designs database structures, system prototypes, and develops end-to-end applications.",
     impactId: "Membantu meningkatkan efisiensi operasional bisnis hingga 20% serta meminimalkan kesalahan pencatatan stok dan transaksi.",
     impactEn: "Helps improve business operational efficiency by up to 20% and minimize stock and transaction recording errors.",
-    featuresId: [
-      "Manajemen produk & stok",
-      "Sistem transaksi penjualan",
-      "Dashboard analytics",
-      "Laporan penjualan real-time",
-      "Manajemen pesanan",
-      "Manajemen pengguna",
-      "Pengaturan profil toko"
-    ],
-    featuresEn: [
-      "Product & Stock Management",
-      "Sales Transaction System",
-      "Analytics Dashboard",
-      "Real-Time Sales Reports",
-      "Order Management",
-      "User Management",
-      "Store Profile Settings"
-    ],
+    featuresId: ["Manajemen produk & stok", "Sistem transaksi penjualan", "Dashboard analytics", "Laporan penjualan real-time", "Manajemen pesanan", "Manajemen pengguna", "Pengaturan profil toko"],
+    featuresEn: ["Product & Stock Management", "Sales Transaction System", "Analytics Dashboard", "Real-Time Sales Reports", "Order Management", "User Management", "Store Profile Settings"],
     demolink: "https://rotimruyungcafe-guesthouse.com/",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 1,
@@ -65,24 +52,8 @@ const projectsData = [
     roleEn: "Fullstack Developer — analyzes business needs, designs a system prototype, designs a database, and develops a website-based POS system.",
     impactId: "Meningkatkan efisiensi proses transaksi hingga 30% dan membantu pengelolaan stok menjadi lebih akurat.",
     impactEn: "Increases transaction process efficiency by up to 30% and helps with more accurate stock management.",
-    featuresId: [
-      "Manajemen produk & stok",
-      "Multi authentication untuk admin & kasir",
-      "Sistem POS untuk kasir",
-      "Dashboard analytics",
-      "Laporan penjualan & stok",
-      "Manajemen pengguna",
-      "Integrasi AI Gemini"
-    ],
-    featuresEn: [
-      "Product & Stock Management",
-      "Multi-Authentication for Admins & Cashiers",
-      "POS System for Cashiers",
-      "Dashboard Analytics",
-      "Sales & Stock Reports",
-      "User Management",
-      "Gemini AI Integration"
-    ],
+    featuresId: ["Manajemen produk & stok", "Multi authentication untuk admin & kasir", "Sistem POS untuk kasir", "Dashboard analytics", "Laporan penjualan & stok", "Manajemen pengguna", "Integrasi AI Gemini"],
+    featuresEn: ["Product & Stock Management", "Multi-Authentication for Admins & Cashiers", "POS System for Cashiers", "Dashboard Analytics", "Sales & Stock Reports", "User Management", "Gemini AI Integration"],
     demolink: "https://kasir.sidudigitalprint.com/login",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 2,
@@ -102,22 +73,8 @@ const projectsData = [
     roleEn: "Frontend Developer — designing UI prototypes, integrating backend APIs, and building a responsive and modern website interface.",
     impactId: "Membangun sistem e-commerce modern dengan proses pembayaran otomatis dan pengalaman pengguna yang lebih efisien.",
     impactEn: "Building a modern e-commerce system with an automated payment process and a more efficient user experience.",
-    featuresId: [
-      "Sistem transaksi online",
-      "Integrasi Midtrans Payment Gateway",
-      "Review produk",
-      "Detail produk & galeri",
-      "Keranjang belanja",
-      "Wishlist produk"
-    ],
-    featuresEn: [
-      "Online transaction system",
-      "Midtrans Payment Gateway integration",
-      "Product reviews",
-      "Product details & gallery",
-      "Shopping cart",
-      "Product wishlist"
-    ],
+    featuresId: ["Sistem transaksi online", "Integrasi Midtrans Payment Gateway", "Review produk", "Detail produk & galeri", "Keranjang belanja", "Wishlist produk"],
+    featuresEn: ["Online transaction system", "Midtrans Payment Gateway integration", "Product reviews", "Product details & gallery", "Shopping cart", "Product wishlist"],
     demolink: "",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 3,
@@ -137,20 +94,8 @@ const projectsData = [
     roleEn: "Frontend Developer — designing the website UI, integrating the Midtrans payment gateway, and building a responsive display for various devices.",
     impactId: "Membantu digitalisasi bisnis coffee shop melalui website modern dengan sistem transaksi online yang lebih praktis.",
     impactEn: "Helping the digitalization of coffee shop businesses through a modern website with a more practical online transaction system.",
-    featuresId: [
-      "Katalog produk",
-      "Keranjang belanja",
-      "Checkout pesanan",
-      "Integrasi pembayaran otomatis",
-      "Responsive design"
-    ],
-    featuresEn: [
-      "Product catalog",
-      "Shopping cart",
-      "Order checkout",
-      "Automatic payment integration",
-      "Responsive design"
-    ],
+    featuresId: ["Katalog produk", "Keranjang belanja", "Checkout pesanan", "Integrasi pembayaran otomatis", "Responsive design"],
+    featuresEn: ["Product catalog", "Shopping cart", "Order checkout", "Automatic payment integration", "Responsive design"],
     demolink: "https://felixwahyu.github.io/kedai-kopi-kenangan-alam/",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 4,
@@ -170,20 +115,8 @@ const projectsData = [
     roleEn: "Fullstack Developer — designing a modern UI/UX, building a backend API, and developing a responsive frontend portfolio website.",
     impactId: "Meningkatkan personal branding profesional dan mempermudah recruiter melihat pengalaman serta proyek yang telah dikembangkan.",
     impactEn: "Improve your professional personal branding and make it easier for recruiters to see your experience and developed projects.",
-    featuresId: [
-      "Multi-language support",
-      "Dark & light mode",
-      "Dashboard statistik coding",
-      "Informasi kontak",
-      "Project showcase"
-    ],
-    featuresEn: [
-      "Multi-language support",
-      "Dark & Light mode",
-      "Coding statistics dashboard",
-      "Contact information",
-      "Project showcase"
-    ],
+    featuresId: ["Multi-language support", "Dark & light mode", "Dashboard statistik coding", "Informasi kontak", "Project showcase"],
+    featuresEn: ["Multi-language support", "Dark & Light mode", "Coding statistics dashboard", "Contact information", "Project showcase"],
     demolink: "https://www.felixws.my.id/",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 5,
@@ -203,18 +136,8 @@ const projectsData = [
     roleEn: "Fullstack Developer — designing the interface and developing a modern and responsive website frontend.",
     impactId: "Menjadi media personal branding awal untuk menampilkan kemampuan dan pengalaman pengembangan website.",
     impactEn: "Becoming a personal media platform Initial branding to showcase website development skills and experience.",
-    featuresId: [
-      "Multi-language support",
-      "Informasi kontak",
-      "GitHub statistics",
-      "Responsive design"
-    ],
-    featuresEn: [
-      "Multi-language support",
-      "Contact information",
-      "GitHub statistics",
-      "Responsive design"
-    ],
+    featuresId: ["Multi-language support", "Informasi kontak", "GitHub statistics", "Responsive design"],
+    featuresEn: ["Multi-language support", "Contact information", "GitHub statistics", "Responsive design"],
     demolink: "https://felixwahyu.github.io/my-portofolio-website/",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 6,
@@ -234,22 +157,8 @@ const projectsData = [
     roleEn: "Fullstack Developer — designing and developing an e-commerce system, modern frontend, and backend API integration.",
     impactId: "Membantu digitalisasi penjualan buku dengan integrasi pemesanan otomatis dan payment gateway modern.",
     impactEn: "Helping digitize book sales with automated booking integration and a modern payment gateway.",
-    featuresId: [
-      "Katalog produk",
-      "Keranjang belanja",
-      "Pemesanan otomatis via WhatsApp",
-      "Pencarian produk",
-      "Detail produk",
-      "Wishlist produk"
-    ],
-    featuresEn: [
-      "Product catalog",
-      "Shopping cart",
-      "Automatic ordering via WhatsApp",
-      "Product search",
-      "Product details",
-      "Product wishlist"
-    ],
+    featuresId: ["Katalog produk", "Keranjang belanja", "Pemesanan otomatis via WhatsApp", "Pencarian produk", "Detail produk", "Wishlist produk"],
+    featuresEn: ["Product catalog", "Shopping cart", "Automatic ordering via WhatsApp", "Product search", "Product details", "Product wishlist"],
     demolink: "",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 7,
@@ -269,25 +178,13 @@ const projectsData = [
     roleEn: "Fullstack Developer — designing and developing a web-based car rental system with a modern UI and backend management system.",
     impactId: "Meningkatkan kepercayaan pelanggan dan membantu proses reservasi kendaraan menjadi lebih cepat dan efisien.",
     impactEn: "Increasing customer confidence and helping the vehicle reservation process become faster and more efficient.",
-    featuresId: [
-      "Daftar mobil",
-      "Detail kendaraan",
-      "Reservasi via WhatsApp",
-      "Review & rating",
-      "Status reservasi"
-    ],
-    featuresEn: [
-      "Car List",
-      "Vehicle Details",
-      "Reservation via WhatsApp",
-      "Review & Rating",
-      "Reservation Status"
-    ],
+    featuresId: ["Daftar mobil", "Detail kendaraan", "Reservasi via WhatsApp", "Review & rating", "Status reservasi"],
+    featuresEn: ["Car List", "Vehicle Details", "Reservation via WhatsApp", "Review & Rating", "Reservation Status"],
     demolink: "",
     sourcelink: "https://github.com/FelixWahyu",
     sortOrder: 8,
     isPublished: true,
-  }
+  },
 ];
 
 const achievementsData = [
@@ -375,52 +272,64 @@ const achievementsData = [
     descriptionEn: "Contribute to campus activities as a PKKMB committee member to learn coordination and teamwork.",
     sortOrder: 5,
     isPublished: true,
-  }
+  },
 ];
 
 async function main() {
-  const adminEmail = "admin@felixws.my.id";
-  const placeholderPassword = "adminpassword123";
-  
-  const hashedPassword = await bcrypt.hash(placeholderPassword, 10);
+  // const adminEmail = "admin@felixws.my.id";
+  // const placeholderPassword = "adminpassword123";
 
-  console.log("Seeding admin user...");
-  
-  const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {},
-    create: {
-      email: adminEmail,
-      name: "Admin Felix",
-      password: hashedPassword,
-      role: "admin",
-    },
-  });
+  // const hashedPassword = await bcrypt.hash(placeholderPassword, 10);
 
-  console.log({ admin });
+  // console.log("Seeding admin user...");
 
-  console.log("Seeding projects...");
-  
+  // const admin = await prisma.user.upsert({
+  //   where: { email: adminEmail },
+  //   update: {},
+  //   create: {
+  //     email: adminEmail,
+  //     name: "Admin Felix",
+  //     password: hashedPassword,
+  //     role: "admin",
+  //   },
+  // });
+
+  // console.log({ admin });
+
+  // console.log("Seeding projects...");
+
   // Clear existing projects to avoid duplicate entries when re-seeding
-  await prisma.project.deleteMany({});
-  
-  for (const project of projectsData) {
-    const createdProject = await prisma.project.create({
-      data: project
-    });
-    console.log(`Created project: ${createdProject.titleId}`);
-  }
+  // await prisma.project.deleteMany({});
 
-  console.log("Seeding achievements...");
-  
+  // for (const project of projectsData) {
+  //   const createdProject = await prisma.project.create({
+  //     data: project
+  //   });
+  //   console.log(`Created project: ${createdProject.titleId}`);
+  // }
+
+  // console.log("Seeding achievements...");
+
   // Clear existing achievements to avoid duplicate entries
-  await prisma.achievement.deleteMany({});
-  
-  for (const achievement of achievementsData) {
-    const createdAchievement = await prisma.achievement.create({
-      data: achievement
+  // await prisma.achievement.deleteMany({});
+
+  // for (const achievement of achievementsData) {
+  //   const createdAchievement = await prisma.achievement.create({
+  //     data: achievement
+  //   });
+  //   console.log(`Created achievement: ${createdAchievement.titleId}`);
+  // }
+
+  console.log("Seeding experiences...");
+
+  // Clear existing experiences to avoid duplicate entries
+  await prisma.experience.deleteMany({});
+
+  for (const experience of experiencesData) {
+    const createdExperience = await prisma.experience.create({
+      data: experience,
     });
-    console.log(`Created achievement: ${createdAchievement.titleId}`);
+    console.log(`Created experience: ${createdExperience.roleId}`);
   }
 
   console.log("Seed finished successfully.");
@@ -434,4 +343,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-

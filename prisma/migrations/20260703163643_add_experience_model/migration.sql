@@ -1,0 +1,30 @@
+-- CreateTable
+CREATE TABLE "experiences" (
+    "id" TEXT NOT NULL,
+    "role_id" TEXT NOT NULL,
+    "role_en" TEXT NOT NULL,
+    "company_id" TEXT NOT NULL,
+    "company_en" TEXT NOT NULL,
+    "location_id" TEXT NOT NULL,
+    "location_en" TEXT NOT NULL,
+    "period_id" TEXT NOT NULL,
+    "period_en" TEXT NOT NULL,
+    "duration_id" TEXT NOT NULL,
+    "duration_en" TEXT NOT NULL,
+    "type_id" TEXT NOT NULL,
+    "type_en" TEXT NOT NULL,
+    "mode_id" TEXT NOT NULL,
+    "mode_en" TEXT NOT NULL,
+    "responsibilities_id" TEXT[],
+    "responsibilities_en" TEXT[],
+    "insight_id" TEXT[],
+    "insight_en" TEXT[],
+    "impact_id" TEXT[],
+    "impact_en" TEXT[],
+    "sort_order" INTEGER NOT NULL DEFAULT 0,
+    "is_published" BOOLEAN NOT NULL DEFAULT true,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "experiences_pkey" PRIMARY KEY ("id")
+);

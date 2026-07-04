@@ -76,4 +76,39 @@ model Achievement {
   @@map("achievements")
 }
 
+model Experience {
+  id                 String   @id @default(cuid())
+
+  // === Bilingual Fields (ID & EN) ===
+  roleId             String   @map("role_id")
+  roleEn             String   @map("role_en")
+  companyId          String   @map("company_id")
+  companyEn          String   @map("company_en")
+  locationId         String   @map("location_id")
+  locationEn         String   @map("location_en")
+  periodId           String   @map("period_id")
+  periodEn           String   @map("period_en")
+  durationId         String   @map("duration_id")
+  durationEn         String   @map("duration_en")
+  typeId             String   @map("type_id")
+  typeEn             String   @map("type_en")
+  modeId             String   @map("mode_id")
+  modeEn             String   @map("mode_en")
+  responsibilitiesId String[] @map("responsibilities_id")
+  responsibilitiesEn String[] @map("responsibilities_en")
+  insightId          String[] @map("insight_id")
+  insightEn          String[] @map("insight_en")
+  impactId           String[] @map("impact_id")
+  impactEn           String[] @map("impact_en")
+
+  // === Non-translatable Fields ===
+  sortOrder          Int      @default(0) @map("sort_order")
+  isPublished        Boolean  @default(true) @map("is_published")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@map("experiences")
+}
+
+
 
