@@ -45,11 +45,11 @@ export const uploadPdf = async (fileBuffer, originalName, folder = "resumes") =>
   const uniqueName = `${baseName}-${Date.now()}${ext}`;
   const filePath = path.join(uploadDir, uniqueName);
 
-  fs.writeFileSync(filePath, fileBuffer);
+  await fs.promises.writeFile(filePath, fileBuffer);
 
   // Return the URL path
-  const PORT = process.env.PORT || 3000;
-  return `http://localhost:${PORT}/uploads/${folder}/${uniqueName}`;
+  const baseUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3000}`;
+  return `${baseUrl}/uploads/${folder}/${uniqueName}`;
 };
 
 export const deletePdf = async (fileUrl) => {
@@ -63,7 +63,7 @@ export const deletePdf = async (fileUrl) => {
     const filePath = path.join(process.cwd(), "uploads", relativePath);
 
     if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
+      await fs.promises.unlink(filePath);
     }
   } catch (error) {
     console.error("Failed to delete PDF locally:", error);

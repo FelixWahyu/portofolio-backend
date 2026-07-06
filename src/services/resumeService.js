@@ -92,7 +92,7 @@ export const updateResume = async (id, data, fileBuffer, originalName) => {
     fileUrl = await uploadPdf(fileBuffer, originalName);
     fileSize = data.fileSize ? parseInt(data.fileSize, 10) : 0;
 
-    if (existingResume.fileUrl && existingResume.fileUrl.includes("cloudinary.com")) {
+    if (existingResume.fileUrl && existingResume.fileUrl.includes("/uploads/")) {
       await deletePdf(existingResume.fileUrl);
     }
   }
@@ -120,7 +120,7 @@ export const deleteResume = async (id) => {
     throw new Error("Cannot delete the active resume");
   }
 
-  if (existingResume.fileUrl && existingResume.fileUrl.includes("cloudinary.com")) {
+  if (existingResume.fileUrl && existingResume.fileUrl.includes("/uploads/")) {
     await deletePdf(existingResume.fileUrl);
   }
 
