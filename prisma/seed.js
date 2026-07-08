@@ -4,6 +4,7 @@ import pg from "pg";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import { experiencesData } from "./experience.seed.js";
+import { resumesData } from "./resume.seed.js";
 
 dotenv.config();
 
@@ -320,16 +321,29 @@ async function main() {
   //   console.log(`Created achievement: ${createdAchievement.titleId}`);
   // }
 
-  console.log("Seeding experiences...");
+  // console.log("Seeding experiences...");
 
   // Clear existing experiences to avoid duplicate entries
-  await prisma.experience.deleteMany({});
+  // await prisma.experience.deleteMany({});
 
-  for (const experience of experiencesData) {
-    const createdExperience = await prisma.experience.create({
-      data: experience,
-    });
-    console.log(`Created experience: ${createdExperience.roleId}`);
+  // for (const experience of experiencesData) {
+  //   const createdExperience = await prisma.experience.create({
+  //     data: experience,
+  //   });
+  //   console.log(`Created experience: ${createdExperience.roleId}`);
+  // }
+
+  const resumeCount = await prisma.resume.count();
+  if (resumeCount === 0) {
+    console.log("Seeding resumes...");
+    for (const resume of resumesData) {
+      const createdResume = await prisma.resume.create({
+        data: resume,
+      });
+      console.log(`Created resume: ${createdResume.fileName}`);
+    }
+  } else {
+    console.log("Resumes already exist, skipping resume seeding.");
   }
 
   console.log("Seed finished successfully.");

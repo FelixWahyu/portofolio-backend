@@ -110,5 +110,22 @@ model Experience {
   @@map("experiences")
 }
 
+model Resume {
+  id          String   @id @default(cuid())
+  
+  // === File Info ===
+  fileName    String   @map("file_name")     // Nama tampilan: "Resume Felix Juli 2026"
+  fileUrl     String   @map("file_url")      // URL Cloudinary (raw PDF)
+  fileSize    Int      @map("file_size")      // Ukuran file dalam bytes
+  
+  // === Status ===
+  isActive    Boolean  @default(false) @map("is_active")  // Hanya 1 yang aktif
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("resumes")
+}
+
+
 
 
