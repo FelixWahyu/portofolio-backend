@@ -34,39 +34,48 @@ export const deleteImage = async (imageUrl) => {
 };
 
 export const uploadPdf = async (fileBuffer, originalName, folder = "resumes") => {
-  const uploadDir = path.join(process.cwd(), "uploads", folder);
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-  }
-
-  // Create a unique filename to prevent collisions
-  const ext = path.extname(originalName);
-  const baseName = path.basename(originalName, ext);
-  const uniqueName = `${baseName}-${Date.now()}${ext}`;
-  const filePath = path.join(uploadDir, uniqueName);
-
-  await fs.promises.writeFile(filePath, fileBuffer);
-
-  // Return the URL path
-  const baseUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3000}`;
-  return `${baseUrl}/uploads/${folder}/${uniqueName}`;
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload_stream(
+      {
+        folder: `portfolio/${folder}`,
+        resource_type: "raw",
+        public_id: originalName.replace(/\.[^/.]+$/, ""),
+        format: "pdf",
+      },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.secure_url);
+      }
+    ).end(fileBuffer);
+  });
 };
 
 export const deletePdf = async (fileUrl) => {
   if (!fileUrl) return;
   try {
-    // Expected format: http://localhost:3000/uploads/resumes/filename.pdf
-    const urlParts = fileUrl.split("/uploads/");
-    if (urlParts.length < 2) return;
-
-    const relativePath = urlParts[1];
-    const filePath = path.join(process.cwd(), "uploads", relativePath);
-
-    if (fs.existsSync(filePath)) {
-      await fs.promises.unlink(filePath);
+    // Expected format: https://res.cloudinary.com/.../raw/upload/v12345/portfolio/resumes/filename.pdf
+    const parts = fileUrl.split("/");
+    const portfolioIndex = parts.indexOf("portfolio");
+    if (portfolioIndex === -1) {
+      // Fallback for older local uploads if any
+      const urlParts = fileUrl.split("/uploads/");
+      if (urlParts.length >= 2) {
+        const relativePath = urlParts[1];
+        const filePath = path.join(process.cwd(), "uploads", relativePath);
+        if (fs.existsSync(filePath)) {
+          await fs.promises.unlink(filePath);
+        }
+      }
+      return;
     }
+
+    const folderAndFile = parts.slice(portfolioIndex).join("/");
+    // Cloudinary 'raw' resources include the extension in the public_id sometimes, or not.
+    // However, usually for raw it's just the exact path.
+    const publicId = folderAndFile;
+
+    await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
   } catch (error) {
-    console.error("Failed to delete PDF locally:", error);
+    console.error("Failed to delete PDF from Cloudinary:", error);
   }
 };
-
