@@ -28,6 +28,7 @@ router.get("/:id", optionalAuth, experienceController.getExperienceById);
 
 // Protected Admin Routes (Require auth)
 router.post("/", authMiddleware, experienceController.createExperience);
+router.put("/:id/toggle-publish", authMiddleware, experienceController.togglePublishExperience);
 router.put("/:id", authMiddleware, experienceController.updateExperience);
 router.delete("/:id", authMiddleware, experienceController.deleteExperience);
 

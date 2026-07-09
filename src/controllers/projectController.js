@@ -2,9 +2,9 @@ import * as projectService from "../services/projectService.js";
 import { successResponse, errorResponse } from "../utils/responseHelper.js";
 
 export const getAllProjects = async (req, res) => {
-  const { search, category, page, limit } = req.query;
-  // If request has req.user (from authMiddleware), check if it's admin role or just authenticated
-  const isAdmin = req.user && req.user.role === "admin";
+  const { search, category, page, limit, adminView } = req.query;
+  // Only show drafts if the user is admin AND requested adminView
+  const isAdmin = req.user && req.user.role === "admin" && adminView === "true";
 
   try {
     const data = await projectService.getAllProjects({
@@ -93,3 +93,15 @@ export const deleteProject = async (req, res) => {
     return errorResponse(res, error.message || "Failed to delete project", null, 500);
   }
 };
+
+export const togglePublishProject = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedProject = await projectService.togglePublishProject(id);
+    return successResponse(res, "Project publish status toggled successfully", updatedProject);
+  } catch (error) {
+    return errorResponse(res, error.message || "Failed to toggle project publish status", null, 500);
+  }
+};
+

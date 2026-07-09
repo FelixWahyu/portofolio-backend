@@ -29,6 +29,7 @@ router.get("/:id", optionalAuth, projectController.getProjectById);
 
 // Protected Admin Routes (Require auth + file uploading)
 router.post("/", authMiddleware, upload.single("image"), projectController.createProject);
+router.put("/:id/toggle-publish", authMiddleware, projectController.togglePublishProject);
 router.put("/:id", authMiddleware, upload.single("image"), projectController.updateProject);
 router.delete("/:id", authMiddleware, projectController.deleteProject);
 

@@ -2,8 +2,8 @@ import * as experienceService from "../services/experienceService.js";
 import { successResponse, errorResponse } from "../utils/responseHelper.js";
 
 export const getAllExperiences = async (req, res) => {
-  const { search, page, limit } = req.query;
-  const isAdmin = req.user && req.user.role === "admin";
+  const { search, page, limit, adminView } = req.query;
+  const isAdmin = req.user && req.user.role === "admin" && adminView === "true";
 
   try {
     const data = await experienceService.getAllExperiences({
@@ -82,3 +82,15 @@ export const deleteExperience = async (req, res) => {
     return errorResponse(res, error.message || "Failed to delete experience", null, 500);
   }
 };
+
+export const togglePublishExperience = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedExperience = await experienceService.togglePublishExperience(id);
+    return successResponse(res, "Experience publish status toggled successfully", updatedExperience);
+  } catch (error) {
+    return errorResponse(res, error.message || "Failed to toggle experience publish status", null, 500);
+  }
+};
+

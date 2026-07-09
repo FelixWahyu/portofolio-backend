@@ -155,3 +155,21 @@ export const deleteExperience = async (id) => {
     where: { id },
   });
 };
+
+export const togglePublishExperience = async (id) => {
+  const existingExperience = await prisma.experience.findUnique({
+    where: { id },
+  });
+
+  if (!existingExperience) {
+    throw new Error("Experience not found");
+  }
+
+  return await prisma.experience.update({
+    where: { id },
+    data: {
+      isPublished: !existingExperience.isPublished,
+    },
+  });
+};
+

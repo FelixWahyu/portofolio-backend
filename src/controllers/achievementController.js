@@ -2,8 +2,8 @@ import * as achievementService from "../services/achievementService.js";
 import { successResponse, errorResponse } from "../utils/responseHelper.js";
 
 export const getAllAchievements = async (req, res) => {
-  const { search, type, page, limit } = req.query;
-  const isAdmin = req.user && req.user.role === "admin";
+  const { search, type, page, limit, adminView } = req.query;
+  const isAdmin = req.user && req.user.role === "admin" && adminView === "true";
 
   try {
     const data = await achievementService.getAllAchievements({
@@ -100,3 +100,15 @@ export const deleteAchievement = async (req, res) => {
     return errorResponse(res, error.message || "Failed to delete achievement", null, 500);
   }
 };
+
+export const togglePublishAchievement = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedAchievement = await achievementService.togglePublishAchievement(id);
+    return successResponse(res, "Achievement publish status toggled successfully", updatedAchievement);
+  } catch (error) {
+    return errorResponse(res, error.message || "Failed to toggle achievement publish status", null, 500);
+  }
+};
+

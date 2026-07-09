@@ -30,6 +30,7 @@ router.get("/:id", optionalAuth, achievementController.getAchievementById);
 
 // Protected Admin Routes (Require auth + file uploading)
 router.post("/", authMiddleware, upload.single("image"), achievementController.createAchievement);
+router.put("/:id/toggle-publish", authMiddleware, achievementController.togglePublishAchievement);
 router.put("/:id", authMiddleware, upload.single("image"), achievementController.updateAchievement);
 router.delete("/:id", authMiddleware, achievementController.deleteAchievement);
 

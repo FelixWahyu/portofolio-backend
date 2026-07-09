@@ -184,3 +184,21 @@ export const deleteAchievement = async (id) => {
     where: { id },
   });
 };
+
+export const togglePublishAchievement = async (id) => {
+  const existingAchievement = await prisma.achievement.findUnique({
+    where: { id },
+  });
+
+  if (!existingAchievement) {
+    throw new Error("Achievement not found");
+  }
+
+  return await prisma.achievement.update({
+    where: { id },
+    data: {
+      isPublished: !existingAchievement.isPublished,
+    },
+  });
+};
+

@@ -181,3 +181,21 @@ export const deleteProject = async (id) => {
     where: { id },
   });
 };
+
+export const togglePublishProject = async (id) => {
+  const existingProject = await prisma.project.findUnique({
+    where: { id },
+  });
+
+  if (!existingProject) {
+    throw new Error("Project not found");
+  }
+
+  return await prisma.project.update({
+    where: { id },
+    data: {
+      isPublished: !existingProject.isPublished,
+    },
+  });
+};
+
