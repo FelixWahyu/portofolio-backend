@@ -1,10 +1,20 @@
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import routes from "./routes/index.js";
 import { env } from "./config/env.js";
 import { errorResponse } from "./utils/responseHelper.js";
+import { apiLimiter } from "./middlewares/rateLimiter.js";
 
 const app = express();
+
+// Security Headers
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // Disable CSP agar tidak konflik dengan frontend
+    crossOriginEmbedderPolicy: false, // Agar gambar Cloudinary bisa dimuat
+  }),
+);
 
 app.use(
   cors({
@@ -27,6 +37,9 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
+// Rate Limiter untuk seluruh API
+app.use("/api", apiLimiter);
+
 app.use("/api", routes);
 app.use("/uploads", express.static("uploads"));
 
@@ -46,3 +59,4 @@ app.use((err, req, res, next) => {
 });
 
 export default app;
+
