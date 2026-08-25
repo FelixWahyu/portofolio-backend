@@ -11,6 +11,8 @@ export const env = {
   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+  VERCEL_API_TOKEN: process.env.VERCEL_API_TOKEN,
+  VERCEL_PROJECT_ID: process.env.VERCEL_PROJECT_ID,
   ALLOWED_ORIGINS: (() => {
     const raw = process.env.ALLOWED_ORIGINS;
     if (!raw) return ["http://localhost:5173", "http://localhost:8080"];

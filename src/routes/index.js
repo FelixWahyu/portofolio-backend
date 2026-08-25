@@ -5,6 +5,7 @@ import projectRoute from "./projectRoute.js";
 import achievementRoute from "./achievementRoute.js";
 import experienceRoute from "./experienceRoute.js";
 import resumeRoute from "./resumeRoute.js";
+import analyticsRoute from "./analyticsRoute.js";
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.use("/projects", projectRoute);
 router.use("/achievements", achievementRoute);
 router.use("/experiences", experienceRoute);
 router.use("/resumes", resumeRoute);
+router.use("/analytics", analyticsRoute);
 
 export default router;
 
