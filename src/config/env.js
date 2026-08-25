@@ -20,7 +20,6 @@ export const env = {
         return JSON.parse(trimmed);
       }
     } catch (e) {
-      // Fallback if parsing fails
     }
     return raw.split(",").map(origin => origin.trim().replace(/^["']|["']$/g, ""));
   })(),

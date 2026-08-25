@@ -17,14 +17,11 @@ export const uploadImage = async (fileBuffer, folder = "projects") => {
 export const deleteImage = async (imageUrl) => {
   if (!imageUrl) return;
   try {
-    // Standard Cloudinary URL structure: https://res.cloudinary.com/.../image/upload/v12345/portfolio/projects/publicId.webp
-    // We want to extract 'portfolio/projects/publicId'
     const parts = imageUrl.split("/");
     const portfolioIndex = parts.indexOf("portfolio");
-    if (portfolioIndex === -1) return; // Not a Cloudinary image or different directory structure
+    if (portfolioIndex === -1) return;
     
     const folderAndFile = parts.slice(portfolioIndex).join("/");
-    // Remove the file extension (e.g. .webp, .jpg)
     const publicId = folderAndFile.replace(/\.[^/.]+$/, "");
     
     await cloudinary.uploader.destroy(publicId);
@@ -53,11 +50,9 @@ export const uploadPdf = async (fileBuffer, originalName, folder = "resumes") =>
 export const deletePdf = async (fileUrl) => {
   if (!fileUrl) return;
   try {
-    // Expected format: https://res.cloudinary.com/.../raw/upload/v12345/portfolio/resumes/filename.pdf
     const parts = fileUrl.split("/");
     const portfolioIndex = parts.indexOf("portfolio");
     if (portfolioIndex === -1) {
-      // Fallback for older local uploads if any
       const urlParts = fileUrl.split("/uploads/");
       if (urlParts.length >= 2) {
         const relativePath = urlParts[1];
@@ -70,8 +65,6 @@ export const deletePdf = async (fileUrl) => {
     }
 
     const folderAndFile = parts.slice(portfolioIndex).join("/");
-    // Cloudinary 'raw' resources include the extension in the public_id sometimes, or not.
-    // However, usually for raw it's just the exact path.
     const publicId = folderAndFile;
 
     await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });

@@ -277,62 +277,6 @@ const achievementsData = [
 ];
 
 async function main() {
-  // const adminEmail = "admin@felixws.my.id";
-  // const placeholderPassword = "adminpassword123";
-
-  // const hashedPassword = await bcrypt.hash(placeholderPassword, 10);
-
-  // console.log("Seeding admin user...");
-
-  // const admin = await prisma.user.upsert({
-  //   where: { email: adminEmail },
-  //   update: {},
-  //   create: {
-  //     email: adminEmail,
-  //     name: "Admin Felix",
-  //     password: hashedPassword,
-  //     role: "admin",
-  //   },
-  // });
-
-  // console.log({ admin });
-
-  // console.log("Seeding projects...");
-
-  // Clear existing projects to avoid duplicate entries when re-seeding
-  // await prisma.project.deleteMany({});
-
-  // for (const project of projectsData) {
-  //   const createdProject = await prisma.project.create({
-  //     data: project
-  //   });
-  //   console.log(`Created project: ${createdProject.titleId}`);
-  // }
-
-  // console.log("Seeding achievements...");
-
-  // Clear existing achievements to avoid duplicate entries
-  // await prisma.achievement.deleteMany({});
-
-  // for (const achievement of achievementsData) {
-  //   const createdAchievement = await prisma.achievement.create({
-  //     data: achievement
-  //   });
-  //   console.log(`Created achievement: ${createdAchievement.titleId}`);
-  // }
-
-  // console.log("Seeding experiences...");
-
-  // Clear existing experiences to avoid duplicate entries
-  // await prisma.experience.deleteMany({});
-
-  // for (const experience of experiencesData) {
-  //   const createdExperience = await prisma.experience.create({
-  //     data: experience,
-  //   });
-  //   console.log(`Created experience: ${createdExperience.roleId}`);
-  // }
-
   const resumeCount = await prisma.resume.count();
   if (resumeCount === 0) {
     console.log("Seeding resumes...");

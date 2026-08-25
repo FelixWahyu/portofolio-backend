@@ -49,7 +49,6 @@ export const getUserById = async (id) => {
 export const updateProfile = async (userId, data) => {
   const { name, email, password } = data;
 
-  // Check if email is already taken by another user
   if (email) {
     const existingUser = await prisma.user.findFirst({
       where: {

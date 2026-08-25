@@ -4,21 +4,17 @@ import { uploadImage, deleteImage } from "./uploadService.js";
 export const getAllProjects = async ({ search, category, page, limit, isAdmin = false }) => {
   const where = {};
 
-  // If not admin, only show published projects
   if (!isAdmin) {
     where.isPublished = true;
   }
 
-  // Filter by category
   if (category && category !== "All") {
-    // Exact match for category
     where.category = {
       equals: category,
       mode: "insensitive",
     };
   }
 
-  // Search filter (searches in titleId, titleEn, descriptionId, descriptionEn)
   if (search) {
     where.OR = [
       { titleId: { contains: search, mode: "insensitive" } },
@@ -28,13 +24,11 @@ export const getAllProjects = async ({ search, category, page, limit, isAdmin = 
     ];
   }
 
-  // Default sorting: sortOrder ascending, then createdAt descending
   const orderBy = [
     { sortOrder: "asc" },
     { createdAt: "desc" },
   ];
 
-  // Pagination calculation
   const parsedPage = parseInt(page, 10) || 1;
   const parsedLimit = parseInt(limit, 10) || 10;
   const skip = (parsedPage - 1) * parsedLimit;
@@ -77,7 +71,6 @@ export const createProject = async (data, imageBuffer) => {
     throw new Error("Project image is required");
   }
 
-  // Parse arrays and types from FormData
   const tech = typeof data.tech === "string" ? JSON.parse(data.tech) : (data.tech || []);
   const featuresId = typeof data.featuresId === "string" ? JSON.parse(data.featuresId) : (data.featuresId || []);
   const featuresEn = typeof data.featuresEn === "string" ? JSON.parse(data.featuresEn) : (data.featuresEn || []);
@@ -121,16 +114,13 @@ export const updateProject = async (id, data, imageBuffer) => {
   let imageUrl = existingProject.image;
 
   if (imageBuffer) {
-    // Upload new image
     imageUrl = await uploadImage(imageBuffer);
     
-    // Delete old image from Cloudinary (only if it was a Cloudinary URL)
     if (existingProject.image && existingProject.image.includes("cloudinary.com")) {
       await deleteImage(existingProject.image);
     }
   }
 
-  // Parse arrays and types from FormData
   const tech = typeof data.tech === "string" ? JSON.parse(data.tech) : (data.tech || []);
   const featuresId = typeof data.featuresId === "string" ? JSON.parse(data.featuresId) : (data.featuresId || []);
   const featuresEn = typeof data.featuresEn === "string" ? JSON.parse(data.featuresEn) : (data.featuresEn || []);
@@ -172,7 +162,6 @@ export const deleteProject = async (id) => {
     throw new Error("Project not found");
   }
 
-  // Delete image from Cloudinary
   if (existingProject.image && existingProject.image.includes("cloudinary.com")) {
     await deleteImage(existingProject.image);
   }

@@ -17,8 +17,6 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  // In stateless JWT, logout is primarily handled by client side (deleting the token)
-  // We can return a success response to acknowledge the action
   return successResponse(res, "Logged out successfully");
 };
 

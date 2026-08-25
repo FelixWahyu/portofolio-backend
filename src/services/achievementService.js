@@ -4,12 +4,10 @@ import { uploadImage, deleteImage } from "./uploadService.js";
 export const getAllAchievements = async ({ search, type, page, limit, isAdmin = false }) => {
   const where = {};
 
-  // If not admin, only show published achievements
   if (!isAdmin) {
     where.isPublished = true;
   }
 
-  // Filter by type
   if (type && type !== "All") {
     where.type = {
       equals: type,
@@ -17,7 +15,6 @@ export const getAllAchievements = async ({ search, type, page, limit, isAdmin = 
     };
   }
 
-  // Search filter (searches in titleId, titleEn, issuerTextId, issuerTextEn, descriptionId, descriptionEn)
   if (search) {
     where.OR = [
       { titleId: { contains: search, mode: "insensitive" } },
@@ -29,13 +26,11 @@ export const getAllAchievements = async ({ search, type, page, limit, isAdmin = 
     ];
   }
 
-  // Default sorting: sortOrder ascending, then createdAt descending
   const orderBy = [
     { sortOrder: "asc" },
     { createdAt: "desc" },
   ];
 
-  // Pagination calculation
   const parsedPage = parseInt(page, 10) || 1;
   const parsedLimit = parseInt(limit, 10) || 10;
   const skip = (parsedPage - 1) * parsedLimit;
@@ -70,7 +65,6 @@ export const getAchievementCount = async () => {
 };
 
 export const getAchievementTypes = async () => {
-  // Query distinct type values from achievements
   const distinctTypes = await prisma.achievement.findMany({
     select: {
       type: true,
@@ -90,7 +84,6 @@ export const createAchievement = async (data, imageBuffer) => {
     throw new Error("Achievement image is required");
   }
 
-  // Parse arrays and types from FormData
   const tagsId = typeof data.tagsId === "string" ? JSON.parse(data.tagsId) : (data.tagsId || []);
   const tagsEn = typeof data.tagsEn === "string" ? JSON.parse(data.tagsEn) : (data.tagsEn || []);
   const sortOrder = parseInt(data.sortOrder, 10) || 0;
@@ -129,16 +122,13 @@ export const updateAchievement = async (id, data, imageBuffer) => {
   let imageUrl = existingAchievement.image;
 
   if (imageBuffer) {
-    // Upload new image
     imageUrl = await uploadImage(imageBuffer, "achievements");
     
-    // Delete old image from Cloudinary
     if (existingAchievement.image && existingAchievement.image.includes("cloudinary.com")) {
       await deleteImage(existingAchievement.image);
     }
   }
 
-  // Parse arrays and types from FormData
   const tagsId = typeof data.tagsId === "string" ? JSON.parse(data.tagsId) : (data.tagsId || []);
   const tagsEn = typeof data.tagsEn === "string" ? JSON.parse(data.tagsEn) : (data.tagsEn || []);
   const sortOrder = parseInt(data.sortOrder, 10) || 0;
@@ -175,7 +165,6 @@ export const deleteAchievement = async (id) => {
     throw new Error("Achievement not found");
   }
 
-  // Delete image from Cloudinary
   if (existingAchievement.image && existingAchievement.image.includes("cloudinary.com")) {
     await deleteImage(existingAchievement.image);
   }

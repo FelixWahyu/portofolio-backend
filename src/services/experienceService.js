@@ -14,12 +14,10 @@ const parseArray = (field) => {
 export const getAllExperiences = async ({ search, page, limit, isAdmin = false }) => {
   const where = {};
 
-  // If not admin, only show published experiences
   if (!isAdmin) {
     where.isPublished = true;
   }
 
-  // Search filter (searches in roleId, roleEn, companyId, companyEn)
   if (search) {
     where.OR = [
       { roleId: { contains: search, mode: "insensitive" } },
@@ -29,13 +27,11 @@ export const getAllExperiences = async ({ search, page, limit, isAdmin = false }
     ];
   }
 
-  // Default sorting: sortOrder ascending, then createdAt descending
   const orderBy = [
     { sortOrder: "asc" },
     { createdAt: "desc" },
   ];
 
-  // Pagination calculation
   const parsedPage = parseInt(page, 10) || 1;
   const parsedLimit = parseInt(limit, 10) || 10;
   const skip = (parsedPage - 1) * parsedLimit;

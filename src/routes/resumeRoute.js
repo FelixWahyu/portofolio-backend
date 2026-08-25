@@ -15,16 +15,13 @@ const optionalAuth = (req, res, next) => {
       const decoded = jwt.verify(token, env.JWT_SECRET);
       req.user = decoded;
     } catch (error) {
-      // Proceed without req.user if token is invalid
     }
   }
   next();
 };
 
-// Public routes
 router.get("/active", resumeController.getActiveResume);
 
-// Admin routes
 router.get("/", optionalAuth, resumeController.getAllResumes);
 router.get("/stats", optionalAuth, resumeController.getResumeStats);
 router.get("/:id", optionalAuth, resumeController.getResumeById);

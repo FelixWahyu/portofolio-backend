@@ -8,7 +8,6 @@ import resumeRoute from "./resumeRoute.js";
 
 const router = express.Router();
 
-// Register sub-routes
 router.use("/wakatime", wakatimeRoute);
 router.use("/auth", authRoute);
 router.use("/projects", projectRoute);

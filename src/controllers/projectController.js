@@ -3,7 +3,6 @@ import { successResponse, errorResponse } from "../utils/responseHelper.js";
 
 export const getAllProjects = async (req, res) => {
   const { search, category, page, limit, adminView } = req.query;
-  // Only show drafts if the user is admin AND requested adminView
   const isAdmin = req.user && req.user.role === "admin" && adminView === "true";
 
   try {
@@ -37,7 +36,6 @@ export const getProjectById = async (req, res) => {
 export const getDashboardStats = async (req, res) => {
   try {
     const totalProjects = await projectService.getProjectCount();
-    // We can also retrieve total achievements count if achievement model exists, but for now we focus on projects
     return successResponse(res, "Stats retrieved successfully", { totalProjects });
   } catch (error) {
     return errorResponse(res, error.message || "Failed to retrieve stats");

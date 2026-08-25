@@ -7,7 +7,6 @@ import { env } from "../config/env.js";
 
 const router = express.Router();
 
-// Optional Auth Middleware to detect if logged in admin is fetching
 const optionalAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith("Bearer ")) {
@@ -16,19 +15,16 @@ const optionalAuth = (req, res, next) => {
       const decoded = jwt.verify(token, env.JWT_SECRET);
       req.user = decoded;
     } catch (error) {
-      // Proceed without req.user if token is invalid
     }
   }
   next();
 };
 
-// Public/Optional Routes
 router.get("/", optionalAuth, achievementController.getAllAchievements);
 router.get("/stats", optionalAuth, achievementController.getAchievementStats);
 router.get("/types", optionalAuth, achievementController.getAchievementTypes);
 router.get("/:id", optionalAuth, achievementController.getAchievementById);
 
-// Protected Admin Routes (Require auth + file uploading)
 router.post("/", authMiddleware, upload.single("image"), achievementController.createAchievement);
 router.put("/:id/toggle-publish", authMiddleware, achievementController.togglePublishAchievement);
 router.put("/:id", authMiddleware, upload.single("image"), achievementController.updateAchievement);

@@ -7,7 +7,6 @@ import { env } from "../config/env.js";
 
 const router = express.Router();
 
-// Optional Auth Middleware for Project List to detect if logged in admin is fetching
 const optionalAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith("Bearer ")) {
@@ -16,18 +15,15 @@ const optionalAuth = (req, res, next) => {
       const decoded = jwt.verify(token, env.JWT_SECRET);
       req.user = decoded;
     } catch (error) {
-      // Proceed without req.user if token is invalid
     }
   }
   next();
 };
 
-// Public/Optional Routes
 router.get("/", optionalAuth, projectController.getAllProjects);
 router.get("/stats", optionalAuth, projectController.getDashboardStats);
 router.get("/:id", optionalAuth, projectController.getProjectById);
 
-// Protected Admin Routes (Require auth + file uploading)
 router.post("/", authMiddleware, upload.single("image"), projectController.createProject);
 router.put("/:id/toggle-publish", authMiddleware, projectController.togglePublishProject);
 router.put("/:id", authMiddleware, upload.single("image"), projectController.updateProject);

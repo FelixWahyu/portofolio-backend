@@ -21,7 +21,6 @@ model User {
 model Project {
   id            String   @id @default(cuid())
 
-  // === Bilingual Fields (ID & EN) ===
   titleId       String   @map("title_id")
   titleEn       String   @map("title_en")
   descriptionId String   @map("description_id") @db.Text
@@ -35,10 +34,9 @@ model Project {
   featuresId    String[] @map("features_id")
   featuresEn    String[] @map("features_en")
 
-  // === Non-translatable Fields ===
-  image         String                        // URL gambar (Cloudinary)
-  category      String   @default("Web")      // "Web" | "Mobile"
-  tech          String[]                       // Array tech stack
+  image         String
+  category      String   @default("Web")
+  tech          String[]
   demolink      String?  @map("demo_link")
   sourcelink    String?  @map("source_link")
   sortOrder     Int      @default(0) @map("sort_order")
@@ -52,22 +50,20 @@ model Project {
 model Achievement {
   id              String   @id @default(cuid())
 
-  // === Bilingual Fields (ID & EN) ===
   titleId         String   @map("title_id")
   titleEn         String   @map("title_en")
-  issuerTextId    String   @map("issuer_text_id")    // Penerbit (ID)
-  issuerTextEn    String   @map("issuer_text_en")    // Penerbit (EN)
+  issuerTextId    String   @map("issuer_text_id")
+  issuerTextEn    String   @map("issuer_text_en")
   descriptionId   String?  @map("description_id") @db.Text
   descriptionEn   String?  @map("description_en") @db.Text
-  tagsId          String[] @map("tags_id")           // Kategori tag (ID)
-  tagsEn          String[] @map("tags_en")           // Kategori tag (EN)
-  dateId          String   @map("date_id")           // "DESEMBER 2023"
-  dateEn          String   @map("date_en")           // "DECEMBER 2023"
+  tagsId          String[] @map("tags_id")
+  tagsEn          String[] @map("tags_en")
+  dateId          String   @map("date_id")
+  dateEn          String   @map("date_en")
 
-  // === Non-translatable Fields ===
-  image           String                              // URL gambar (Cloudinary)
-  type            String   @default("Profesional")    // Free-text
-  credentialCode  String?  @map("credential_code")    // ID Kredensial
+  image           String
+  type            String   @default("Profesional")
+  credentialCode  String?  @map("credential_code")
   sortOrder       Int      @default(0) @map("sort_order")
   isPublished     Boolean  @default(true) @map("is_published")
   createdAt       DateTime @default(now()) @map("created_at")
@@ -79,7 +75,6 @@ model Achievement {
 model Experience {
   id                 String   @id @default(cuid())
 
-  // === Bilingual Fields (ID & EN) ===
   roleId             String   @map("role_id")
   roleEn             String   @map("role_en")
   companyId          String   @map("company_id")
@@ -101,7 +96,6 @@ model Experience {
   impactId           String[] @map("impact_id")
   impactEn           String[] @map("impact_en")
 
-  // === Non-translatable Fields ===
   sortOrder          Int      @default(0) @map("sort_order")
   isPublished        Boolean  @default(true) @map("is_published")
   createdAt          DateTime @default(now()) @map("created_at")
@@ -113,13 +107,11 @@ model Experience {
 model Resume {
   id          String   @id @default(cuid())
   
-  // === File Info ===
-  fileName    String   @map("file_name")     // Nama tampilan: "Resume Felix Juli 2026"
-  fileUrl     String   @map("file_url")      // URL Cloudinary (raw PDF)
-  fileSize    Int      @map("file_size")      // Ukuran file dalam bytes
+  fileName    String   @map("file_name")
+  fileUrl     String   @map("file_url")
+  fileSize    Int      @map("file_size")
   
-  // === Status ===
-  isActive    Boolean  @default(false) @map("is_active")  // Hanya 1 yang aktif
+  isActive    Boolean  @default(false) @map("is_active")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   

@@ -8,18 +8,16 @@ import { apiLimiter } from "./middlewares/rateLimiter.js";
 
 const app = express();
 
-// Security Headers
 app.use(
   helmet({
-    contentSecurityPolicy: false, // Disable CSP agar tidak konflik dengan frontend
-    crossOriginEmbedderPolicy: false, // Agar gambar Cloudinary bisa dimuat
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
   }),
 );
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
       
       const allowedOrigins = env.ALLOWED_ORIGINS;
@@ -37,7 +35,6 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Rate Limiter untuk seluruh API
 app.use("/api", apiLimiter);
 
 app.use("/api", routes);
@@ -47,12 +44,10 @@ app.get("/", (req, res) => {
   res.json({ message: "API is running" });
 });
 
-// 404 Handler
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-// Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   return errorResponse(res, "Internal Server Error", err, 500);
